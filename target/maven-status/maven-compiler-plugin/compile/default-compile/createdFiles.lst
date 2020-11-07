@@ -1,0 +1,7 @@
+com\motompro\cv_capturablezone\CapturableZoneCommand.class
+com\motompro\cv_capturablezone\ZoneDrawer.class
+com\motompro\cv_capturablezone\SetLootEvent.class
+com\motompro\cv_capturablezone\ZoneUpdater.class
+com\motompro\cv_capturablezone\Zone.class
+com\motompro\cv_capturablezone\CV_CapturableZone.class
+com\motompro\cv_capturablezone\PlayerEnterZoneEvent.class
