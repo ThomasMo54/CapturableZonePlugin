@@ -57,8 +57,9 @@ public final class CV_CapturableZone extends JavaPlugin {
             loots = lootsArrayList.toArray(loots);
 
             boolean randomLoot = zoneSection.getBoolean("randomLoot");
+            int nRandom = zoneSection.getInt("nRandom");
 
-            zones.add(new Zone(name, center, radius, height, capturer, loots, randomLoot, this));
+            zones.add(new Zone(name, center, radius, height, capturer, loots, randomLoot, nRandom,this));
         }
 
         new ZoneDrawer(this).runTaskTimer(this, 0, 10);
@@ -103,8 +104,8 @@ public final class CV_CapturableZone extends JavaPlugin {
         return zones;
     }
 
-    public void addZone(String name, Location center, int radius, int height, boolean randomLoot, Player player) {
-        zones.add(new Zone(name, center, radius, height, player.getUniqueId(), randomLoot, this));
+    public void addZone(String name, Location center, int radius, int height, boolean randomLoot, int nRandom, Player player) {
+        zones.add(new Zone(name, center, radius, height, player.getUniqueId(), randomLoot, nRandom, this));
 
         Inventory inventory = Bukkit.createInventory(null, 54, "Zone loots");
         player.openInventory(inventory);

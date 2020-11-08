@@ -16,7 +16,8 @@ public class Zone {
     private Location center;
     private int radius, height;
     private UUID creator = null;
-    private boolean randomLoot = false;
+    private boolean randomLoot;
+    private int nRandom;
 
     private CV_CapturableZone plugin;
 
@@ -29,7 +30,7 @@ public class Zone {
     private ItemStack[] loots;
 
     // New zone contructor
-    public Zone(String name, Location center, int radius, int height, UUID creator, boolean randomLoot, CV_CapturableZone plugin) {
+    public Zone(String name, Location center, int radius, int height, UUID creator, boolean randomLoot, int nRandom, CV_CapturableZone plugin) {
         this.name = name;
         this.center = center;
         center.add(0, 1, 0);
@@ -37,11 +38,12 @@ public class Zone {
         this.height = height;
         this.creator = creator;
         this.randomLoot = randomLoot;
+        this.nRandom = nRandom;
         this.plugin = plugin;
     }
 
     // From save constructor
-    public Zone(String name, Location center, int radius, int height, UUID capturer, ItemStack[] loots, boolean randomLoot, CV_CapturableZone plugin) {
+    public Zone(String name, Location center, int radius, int height, UUID capturer, ItemStack[] loots, boolean randomLoot, int nRandom, CV_CapturableZone plugin) {
         this.name = name;
         this.center = center;
         this.radius = radius;
@@ -52,6 +54,7 @@ public class Zone {
         }
         this.loots = loots;
         this.randomLoot = randomLoot;
+        this.nRandom = nRandom;
         this.plugin = plugin;
         this.created = true;
 
@@ -67,6 +70,7 @@ public class Zone {
         configSection.put("height", height);
         configSection.put("captured", false);
         configSection.put("randomLoot", randomLoot);
+        configSection.put("nRandom", nRandom);
         plugin.getZonesConfig().getConfigurationSection("zones").createSection(name, configSection);
         plugin.getZonesConfig().getConfigurationSection("zones").getConfigurationSection(name).createSection("loots");
 
@@ -165,8 +169,12 @@ public class Zone {
         return captured;
     }
 
-    public void setRandomLoot(boolean random) {
+    public void setRandomLoot(boolean random, int nRandom) {
         this.randomLoot = random;
+        this.nRandom = nRandom;
+        plugin.getZonesConfig().getConfigurationSection("zones").getConfigurationSection(name).set("randomLoot", random);
+        plugin.getZonesConfig().getConfigurationSection("zones").getConfigurationSection(name).set("nRandom", nRandom);
+        plugin.saveZonesConfig();
     }
 
     public boolean isLocationInside(Location playerLoc) {
@@ -209,8 +217,13 @@ public class Zone {
         capturerPlayer.playSound(capturerPlayer.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 3.0f, 0.5f);
 
         if(randomLoot) {
-            ItemStack loot = loots[new Random().nextInt(loots.length)];
-            capturerPlayer.getInventory().addItem(loot);
+            List<ItemStack> removableLoots = Arrays.asList(loots);
+            for(int i = 0; i < nRandom; i++) {
+                int randomNumber = new Random().nextInt(removableLoots.size());
+                ItemStack loot = removableLoots.get(randomNumber);
+                capturerPlayer.getInventory().addItem(loot);
+                removableLoots.remove(randomNumber);
+            }
         } else {
             capturerPlayer.getInventory().addItem(loots);
         }
