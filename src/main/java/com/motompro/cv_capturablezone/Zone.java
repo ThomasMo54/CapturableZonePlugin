@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -217,7 +218,7 @@ public class Zone {
         capturerPlayer.playSound(capturerPlayer.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 3.0f, 0.5f);
 
         if(randomLoot) {
-            List<ItemStack> removableLoots = Arrays.asList(loots);
+            List<ItemStack> removableLoots = new ArrayList<>(Arrays.asList(loots));
             for(int i = 0; i < nRandom; i++) {
                 int randomNumber = new Random().nextInt(removableLoots.size());
                 ItemStack loot = removableLoots.get(randomNumber);

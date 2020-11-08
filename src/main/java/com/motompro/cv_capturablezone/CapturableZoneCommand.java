@@ -162,8 +162,8 @@ public class CapturableZoneCommand implements CommandExecutor {
             player.sendMessage(ChatColor.GOLD + "- " + ChatColor.GREEN + "Rayon (nombre) : le rayon de la zone");
             player.sendMessage(ChatColor.GOLD + "- " + ChatColor.GREEN + "Hauteur (nombre) : la hauteur de la zone");
             player.sendMessage(ChatColor.GOLD + "- " + ChatColor.GREEN + "Nom (texte) : le nom de la zone");
-            player.sendMessage(ChatColor.GOLD + "- " + ChatColor.GREEN + "Random (random ou rien) optionnel : loot random ou non");
-            player.sendMessage(ChatColor.GOLD + "- " + ChatColor.GREEN + "nRandom (nombre) optionnel : nombre d'items random donnés lors de la capture");
+            player.sendMessage(ChatColor.GOLD + "- " + ChatColor.GREEN + "Random (random ou rien) " + ChatColor.YELLOW + "optionnel" + ChatColor.GREEN + " : loot random ou non");
+            player.sendMessage(ChatColor.GOLD + "- " + ChatColor.GREEN + "nRandom (nombre) " + ChatColor.YELLOW + "optionnel" + ChatColor.GREEN + " : nombre d'items random donnés lors de la capture");
         }
 
         if(action.equals("help")) {
