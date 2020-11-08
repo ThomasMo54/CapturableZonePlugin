@@ -1,8 +1,0 @@
-name: CV_CapturableZone
-version: 1.5-SNAPSHOT
-main: com.motompro.cv_capturablezone.CV_CapturableZone
-authors: [TomMo]
-description: Un plugin qui ajoute des zones capturables.
-commands:
-  capturablezone:
-    description: Commande du mod CapturableZone.
